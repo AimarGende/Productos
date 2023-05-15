@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.ModeloProducto;
+
 /**
  * Servlet implementation class Principal
  */
@@ -26,6 +28,10 @@ public class Principal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ModeloProducto mp = new ModeloProducto();
+		
+		request.setAttribute("Productos", mp.getProductos());
+		
 		request.getRequestDispatcher("Principal.jsp").forward(request, response);
 	}
 
