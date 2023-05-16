@@ -16,16 +16,16 @@ import modelo.ModeloSeccion;
 import modelo.Producto;
 
 /**
- * Servlet implementation class InsertarProducto
+ * Servlet implementation class ModificarProducto
  */
-@WebServlet("/InsertarProducto")
-public class InsertarProducto extends HttpServlet {
+@WebServlet("/ModificarProducto")
+public class ModificarProducto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertarProducto() {
+    public ModificarProducto() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,36 +34,56 @@ public class InsertarProducto extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			ModeloProducto mp = new ModeloProducto();
+			ModeloSeccion ms = new ModeloSeccion();
+
+			request.setAttribute("Producto", mp.getProducto(Integer.parseInt(request.getParameter("id"))));
+			request.setAttribute("Secciones", ms.getSecciones());
+			request.getRequestDispatcher("FormModificarProducto.jsp").forward(request, response);
+			
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Producto producto = new Producto();
 		ModeloProducto mp = new ModeloProducto();
 		ModeloSeccion ms = new ModeloSeccion();
 		
-		
+		producto.setId(Integer.parseInt(request.getParameter("id")));
 		producto.setCodigo(request.getParameter("codigo"));
 		producto.setNombre(request.getParameter("nombre"));
 		producto.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
-		producto.setPrecio(Double.parseDouble(request.getParameter("precio")));	
-		
+		producto.setPrecio(Double.parseDouble(request.getParameter("precio")));
 		try {
 			producto.setCaducidad(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("caducidad")));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		producto.setSeccion(ms.getSeccion(Integer.parseInt(request.getParameter("id_seccion"))));
+		
 		
 		if(mp.getCodigo(producto.getCodigo())) {
 			request.setAttribute("msg", "Codigo duplicado");
+			request.getRequestDispatcher("ModificarProducto").forward(request, response);
+
 		}
 		else if(producto.getPrecio()<0 || producto.getCantidad()<0) {
 			request.setAttribute("msg", "Cantidad o precio negativas");
+			request.getRequestDispatcher("ModificarProducto").forward(request, response);
+
 		}
 		else if(producto.getCaducidad().before(new Date())) {
 			request.setAttribute("msg", "La fecha es de un dia anterior a este");
+			request.getRequestDispatcher("ModificarProducto").forward(request, response);
+
 		}
 		else if(request.getParameter("id_seccion").equals("0")) {
 			request.setAttribute("msg", "Escoga una seccion");
+			request.getRequestDispatcher("ModificarProducto").forward(request, response);
+
 		}
 		else {
 			if(mp.insertarProducto(producto)) {
@@ -74,14 +94,6 @@ public class InsertarProducto extends HttpServlet {
 			}
 		}
 		request.getRequestDispatcher("Principal").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

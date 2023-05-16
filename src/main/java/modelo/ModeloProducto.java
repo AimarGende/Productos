@@ -27,7 +27,28 @@ public class ModeloProducto extends Conector{
 			cerrar();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	public boolean getCodigo(String codigo) {
+		sentencia="SELECT codigo FROM productos WHERE codigo=?";
+		try {
+			conectar();
+			pst=getCon().prepareStatement(sentencia);
+			pst.setString(1, codigo);
+			
+			ResultSet result = pst.executeQuery();
+			result.next();
+			
+			if(codigo.equals(result.getString("codigo"))) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (SQLException e) {
 			return false;
 		}
 	}
@@ -74,6 +95,8 @@ public class ModeloProducto extends Conector{
 			
 			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
+
 			return false;
 		}
 		

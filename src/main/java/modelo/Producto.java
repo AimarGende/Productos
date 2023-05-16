@@ -20,7 +20,7 @@ public class Producto {
 		this.caducidad = caducidad;
 		this.seccion = seccion;
 	}
-	
+		
 	public Producto() {
 	}
 
@@ -73,7 +73,6 @@ public class Producto {
 	}
 
 	
-
 	public Seccion getSeccion() {
 		return seccion;
 	}
@@ -87,10 +86,4 @@ public class Producto {
 		return "Producto [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", cantidad=" + cantidad
 				+ ", precio=" + precio + ", caducidad=" + caducidad + ", seccion=" + seccion + "]";
 	}
-
-
-	
-	
-	
-	
 }
