@@ -42,7 +42,6 @@ public class InsertarProducto extends HttpServlet {
 		producto.setNombre(request.getParameter("nombre"));
 		producto.setCantidad(Integer.parseInt(request.getParameter("cantidad")));
 		producto.setPrecio(Double.parseDouble(request.getParameter("precio")));
-		System.out.println(request.getParameter("caducidad"));
 		try {
 			producto.setCaducidad(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("caducidad")));
 		} catch (ParseException e) {
