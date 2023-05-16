@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloProducto;
+import modelo.ModeloSeccion;
 
 /**
  * Servlet implementation class Principal
@@ -29,7 +30,9 @@ public class Principal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloProducto mp = new ModeloProducto();
+		ModeloSeccion ms = new ModeloSeccion();
 		
+		request.setAttribute("Secciones", ms.getSecciones());
 		request.setAttribute("Productos", mp.getProductos());
 		
 		request.getRequestDispatcher("Principal.jsp").forward(request, response);

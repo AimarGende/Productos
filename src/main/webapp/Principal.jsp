@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title></title>
+<title>Productos</title>
 </head>
 <body>
 	<table class="table">
@@ -35,5 +35,35 @@
 				</tr>	
 			</c:forEach>
 		</table>
+		<br><br>
+		<p>${msg}</p>
+		<br><br>	
+		<form action="InsertarProducto">
+			<label>Codigo</label>
+			<input type="text" name="codigo" placeholder="codigo">
+			<br><br>
+			<label>Nombre</label>
+			<input type="text" name="nombre" placeholder="Nombre">
+			<br><br>
+			<label>Cantidad</label>
+			<input type="text" name="cantidad" placeholder="cantidad">
+			<br><br>
+			<label>Precio</label>
+			<input type="text" name="precio" placeholder="Precio">
+			<br><br>
+			<label>Caducidad</label>
+			<input type="date" name="caducidad" >
+			<br><br>
+			<label>Seccion</label>
+			<select name="id_seccion">
+				<option value=0></option>
+				<c:forEach items="${Secciones}" var="seccion">
+					<option value="${seccion.id}">${seccion.nombre}</option>
+				</c:forEach>
+			</select>
+			<br><br>
+			<input type="submit" value="Insertar Producto">
+		</form>
+		
 </body>
 </html>

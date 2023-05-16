@@ -10,7 +10,7 @@ public class ModeloProducto extends Conector{
 	PreparedStatement pst;
 	String sentencia;
 	public boolean insertarProducto(Producto producto) {
-		sentencia="INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad,id_seccion) VALUES (?,?,?,?,?,)";
+		sentencia="INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad,id_seccion) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			conectar();
@@ -27,6 +27,7 @@ public class ModeloProducto extends Conector{
 			cerrar();
 			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
