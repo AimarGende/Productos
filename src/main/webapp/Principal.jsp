@@ -17,7 +17,7 @@
 				<th scope="row">CANTIDAD</th>
 				<th scope="row">PRECIO</th>
 				<th scope="row">CADUCIDAD</th>
-				<th scope="row">ID_SECCION</th>
+				<th scope="row">SECCION</th>
 				<th scope="row">ELIMINAR</th>
 				<th scope="row">MODIFICAR</th>
 			</tr>
@@ -29,7 +29,7 @@
 					<td>${producto.cantidad}</td>
 					<td>${producto.precio}</td>
 					<td>${producto.caducidad}</td>
-					<td>${producto.id_seccion}</td>
+					<td>${producto.seccion.nombre}</td>
 					<td><a href="EliminarProducto?id=${producto.id}">Eliminar</a></td>
 					<td><a href="ModificarProducto?id=${producto.id}">Modificar</a></td>
 				</tr>	

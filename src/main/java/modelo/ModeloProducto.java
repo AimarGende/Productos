@@ -10,7 +10,7 @@ public class ModeloProducto extends Conector{
 	PreparedStatement pst;
 	String sentencia;
 	public boolean insertarProducto(Producto producto) {
-		sentencia="INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad)";
+		sentencia="INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad,id_seccion) VALUES (?,?,?,?,?,)";
 		
 		try {
 			conectar();
@@ -20,6 +20,7 @@ public class ModeloProducto extends Conector{
 			pst.setInt(3, producto.getCantidad());
 			pst.setDouble(4, producto.getPrecio());
 			pst.setDate(5, new Date(producto.getCaducidad().getTime()));
+			pst.setInt(6, producto.getSeccion().getId());
 			
 			pst.execute();
 			
@@ -51,8 +52,8 @@ public class ModeloProducto extends Conector{
 		
 	}
 	
-	public boolean actualizarProductos(Producto producto) {
-		sentencia="UPDATE productos SET codigo=?,nombre=?,cantidad=?,precio=?,caducidad=? WHERE id=?";
+	public boolean actualizarProducto(Producto producto) {
+		sentencia="UPDATE productos SET codigo=?,nombre=?,cantidad=?,precio=?,caducidad=?, id_seccion=? WHERE id=?";
 		
 		try {
 			conectar();
@@ -63,8 +64,8 @@ public class ModeloProducto extends Conector{
 			pst.setInt(3, producto.getCantidad());
 			pst.setDouble(4, producto.getPrecio());
 			pst.setDate(5, new Date (producto.getCaducidad().getTime()));
-			
-			pst.setInt(1, producto.getId());
+			pst.setInt(6, producto.getSeccion().getId());
+			pst.setInt(7, producto.getId());
 			
 			pst.execute();
 			
@@ -90,13 +91,15 @@ public class ModeloProducto extends Conector{
 			
 			while(result.next()) {
 				Producto producto = new Producto();
+				ModeloSeccion ms = new ModeloSeccion();
 				
+				producto.setId(result.getInt("id"));
 				producto.setCodigo(result.getString("codigo"));
 				producto.setNombre(result.getString("nombre"));
 				producto.setCantidad(result.getInt("cantidad"));
 				producto.setPrecio(result.getDouble("precio"));
 				producto.setCaducidad(result.getDate("caducidad"));
-				
+				producto.setSeccion(ms.getSeccion(result.getInt("id_seccion")));
 				productos.add(producto);
 			}
 			return productos;
@@ -108,7 +111,7 @@ public class ModeloProducto extends Conector{
 	public Producto getProducto(int id) {
 		Producto producto = new Producto();
 		sentencia="SELECT * FROM productos WHERE id=?";
-		
+		ModeloSeccion ms = new ModeloSeccion();
 		try {
 			conectar();
 			pst=getCon().prepareStatement(sentencia);
@@ -117,11 +120,13 @@ public class ModeloProducto extends Conector{
 			ResultSet result = pst.executeQuery();
 			result.next();
 			
+			producto.setId(result.getInt("id"));
 			producto.setCodigo(result.getString("codigo"));
 			producto.setNombre(result.getString("nombre"));
 			producto.setCantidad(result.getInt("cantidad"));
 			producto.setPrecio(result.getDouble("precio"));
 			producto.setCaducidad(result.getDate("caducidad"));
+			producto.setSeccion(ms.getSeccion(result.getInt("id_seccion")));
 			
 			return producto;
 		} catch (SQLException e) {
