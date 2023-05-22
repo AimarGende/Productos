@@ -46,7 +46,7 @@
 				</c:forEach>
 			</select>
 			<br><br>
-			<input type="submit" value="Insertar Producto">
+			<input type="submit" value="Modificar Producto">
 	</form>
 </body>
 </html>

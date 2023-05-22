@@ -64,21 +64,17 @@ public class ModificarProducto extends HttpServlet {
 		}
 		producto.setSeccion(ms.getSeccion(Integer.parseInt(request.getParameter("id_seccion"))));
 		
-		if(mp.getCodigo(producto.getCodigo())) {
-			request.setAttribute("msg", "Codigo duplicado");
-			response.sendRedirect("ModificarProducto");
-		}
-		else if(producto.getPrecio()<0 || producto.getCantidad()<0) {
+		if(producto.getPrecio()<0 || producto.getCantidad()<0) {
 			request.setAttribute("msg", "Cantidad o precio negativas");
-			response.sendRedirect("ModificarProducto");
+			doGet(request, response);
 		}
 		else if(producto.getCaducidad().before(new Date())) {
 			request.setAttribute("msg", "La fecha es de un dia anterior a este");
-			response.sendRedirect("ModificarProducto");
+			doGet(request, response);
 		}
 		else if(request.getParameter("id_seccion").equals("0")) {
 			request.setAttribute("msg", "Escoga una seccion");
-			response.sendRedirect("ModificarProducto");
+			doGet(request, response);
 		}
 		else {
 			if(mp.actualizarProducto(producto)) {
@@ -88,10 +84,7 @@ public class ModificarProducto extends HttpServlet {
 				request.setAttribute("msg", "No se ha modificado");
 			}
 		}
-		
-		
-		
-		
+
 		request.getRequestDispatcher("Principal").forward(request, response);
 	}
 

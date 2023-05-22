@@ -64,6 +64,16 @@
 			<br><br>
 			<input type="submit" value="Insertar Producto">
 		</form>
-		
+		<br><br><br>
+		<form action="BuscadorCodigo">
+			<input type="text" name="codigo" placeholder="Codigo">
+			<input type="submit" value="BuscarPorCodigo">
+		</form>
+		<br><br>
+		<form action="BuscadorNombre">
+			<input type="text" name="nombre" placeholder="Nombre">
+			<input type="submit" value="BuscarNombre">
+		</form>
+		<a href="Principal">Recargar Pagina</a>
 </body>
 </html>
