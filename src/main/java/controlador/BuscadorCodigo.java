@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
+//import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,18 +35,33 @@ public class BuscadorCodigo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloProducto mp = new ModeloProducto();
 		ModeloSeccion ms = new ModeloSeccion();
-		
 		ArrayList<Producto> productos = mp.getProductos();
+
+		//Con for each
+		
 		ArrayList<Producto> productosBuscados = new ArrayList<Producto>();
 		
 		for (Producto producto : productos) {
-			if(producto.getCodigo().contains( request.getParameter("codigo"))) {
-				productosBuscados.add(producto);
+			if(producto.getCodigo().contains((request.getParameter("codigo")))) {
+				productosBuscados.add(producto); 
 			}
 		}
-		request.setAttribute("Secciones", ms.getSecciones());
 		request.setAttribute("Productos", productosBuscados);
+		/*
+		//Con Iterator
+		Iterator<Producto> it = productos.iterator();
 		
+		while(it.hasNext()) {
+			Producto producto = (Producto) it.next();
+			if(producto.getCodigo().contains((request.getParameter("codigo")))) {
+				
+				productos.remove(producto); 
+			}
+		}
+		request.setAttribute("Productos", productos);
+		*/
+		
+		request.setAttribute("Secciones", ms.getSecciones());
 		request.getRequestDispatcher("Principal.jsp").forward(request, response);
 	}
 

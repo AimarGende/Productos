@@ -2,6 +2,7 @@ package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
+//import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,9 +44,20 @@ public class BuscadorNombre extends HttpServlet {
 				productosBuscados.add(producto);
 			}
 		}
-		request.setAttribute("Secciones", ms.getSecciones());
 		request.setAttribute("Productos", productosBuscados);
+
+		/*
+		Iterator<Producto> it = productos.iterator();
 		
+		while(it.hasNext()) {
+			Producto producto = (Producto) it.next();
+			if(producto.getNombre().contains((request.getParameter("nombre")))) {
+				productos.remove(producto); 
+			}
+		}
+		request.setAttribute("Productos", productos);
+		*/
+		request.setAttribute("Secciones", ms.getSecciones());
 		request.getRequestDispatcher("Principal.jsp").forward(request, response);
 	}
 
