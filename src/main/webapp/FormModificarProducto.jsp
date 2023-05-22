@@ -9,6 +9,9 @@
 </head>
 <body>
 	<form action="ModificarProducto" method="post">
+			<br><br>
+			<p>${msg}</p>
+			<br><br>
 			<label>ID: ${Producto.id}</label>
 			<input type="hidden" name="id" value="${Producto.id}">
 			<label>Codigo</label>

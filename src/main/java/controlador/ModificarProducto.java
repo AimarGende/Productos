@@ -64,35 +64,34 @@ public class ModificarProducto extends HttpServlet {
 		}
 		producto.setSeccion(ms.getSeccion(Integer.parseInt(request.getParameter("id_seccion"))));
 		
-		
 		if(mp.getCodigo(producto.getCodigo())) {
 			request.setAttribute("msg", "Codigo duplicado");
-			request.getRequestDispatcher("ModificarProducto").forward(request, response);
-
+			response.sendRedirect("ModificarProducto");
 		}
 		else if(producto.getPrecio()<0 || producto.getCantidad()<0) {
 			request.setAttribute("msg", "Cantidad o precio negativas");
-			request.getRequestDispatcher("ModificarProducto").forward(request, response);
-
+			response.sendRedirect("ModificarProducto");
 		}
 		else if(producto.getCaducidad().before(new Date())) {
 			request.setAttribute("msg", "La fecha es de un dia anterior a este");
-			request.getRequestDispatcher("ModificarProducto").forward(request, response);
-
+			response.sendRedirect("ModificarProducto");
 		}
 		else if(request.getParameter("id_seccion").equals("0")) {
 			request.setAttribute("msg", "Escoga una seccion");
-			request.getRequestDispatcher("ModificarProducto").forward(request, response);
-
+			response.sendRedirect("ModificarProducto");
 		}
 		else {
-			if(mp.insertarProducto(producto)) {
-				request.setAttribute("msg", "Se ha insertado correctamente");
+			if(mp.actualizarProducto(producto)) {
+				request.setAttribute("msg", "Se ha modificado correctamente");
 			}
 			else {
-				request.setAttribute("msg", "No se ha insertado");
+				request.setAttribute("msg", "No se ha modificado");
 			}
 		}
+		
+		
+		
+		
 		request.getRequestDispatcher("Principal").forward(request, response);
 	}
 
