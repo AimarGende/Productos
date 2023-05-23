@@ -37,16 +37,13 @@ public class OrdenarPorPrecio extends HttpServlet {
 		ModeloProducto mp = new ModeloProducto();
 		ModeloSeccion ms = new ModeloSeccion();
 		ArrayList<Producto> productos = mp.getProductos();
-		String orden = request.getParameter("orden");
-		if(orden.equals("Ascendente")) {
+		
+		if(request.getParameter("orden").equals("Ascendente")) {
 			productos.sort(comparator);
 		}else {
 			productos.sort(comparator.reversed());
 		}
-		
-		
-		
-		
+
 		request.setAttribute("Secciones", ms.getSecciones());
 		request.setAttribute("Productos", productos);
 		
