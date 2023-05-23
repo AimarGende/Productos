@@ -7,12 +7,35 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Productos</title>
+
 </head>
 <body>
-	<form action="Ordenar">
-		<input type="Submit" value="Ordenar por precio ascendente" name="asc">
-		<input type="Submit" value="Ordenar por precio descendente" name="desc">
-	</form>
+	<div class="Ordenado" style="display: inline-block; width: 50%;">
+	<h1>Ordenar</h1>
+		<form action="OrdenarPorCodigo">
+			<p>Ordenar por codigo</p>
+			<input type="Submit" value="Ascendente" name="orden">
+			<input type="Submit" value="Descendente" name="orden">
+		</form>
+		<br> <br>
+		<form action="OrdenarPorPrecio">
+			<p>Ordenar por precio</p>
+			<input type="Submit" value="Ascendente" name="orden">
+			<input type="Submit" value="Descendente" name="orden">
+		</form>
+	</div>
+	<div class="buscador" style="display:inline-block	;  width: 45%;">
+		<h1>Buscadores</h1>
+		<form action="BuscadorCodigo">
+			<input type="text" name="codigo" placeholder="Codigo">
+			<input type="submit" value="BuscarPorCodigo">
+		</form>
+		<br><br>
+		<form action="BuscadorNombre">
+			<input type="text" name="nombre" placeholder="Nombre">
+			<input type="submit" value="BuscarNombre">
+		</form>
+	</div>
 	<br> <br>
 	<form action="EntrePrecios" method="get">
 		<input type="text" name="max" placeholder="Precio maximo">
@@ -75,15 +98,7 @@
 			<input type="submit" value="Insertar Producto">
 		</form>
 		<br><br><br>
-		<form action="BuscadorCodigo">
-			<input type="text" name="codigo" placeholder="Codigo">
-			<input type="submit" value="BuscarPorCodigo">
-		</form>
-		<br><br>
-		<form action="BuscadorNombre">
-			<input type="text" name="nombre" placeholder="Nombre">
-			<input type="submit" value="BuscarNombre">
-		</form>
+		
 		<a href="Principal">Recargar Pagina</a>
 </body>
 </html>
