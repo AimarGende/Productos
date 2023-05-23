@@ -9,6 +9,16 @@
 <title>Productos</title>
 </head>
 <body>
+	<form action="Ordenar">
+		<input type="Submit" value="Ordenar por precio ascendente" name="asc">
+		<input type="Submit" value="Ordenar por precio descendente" name="desc">
+	</form>
+	<br> <br>
+	<form action="EntrePrecios" method="get">
+		<input type="text" name="max" placeholder="Precio maximo">
+		<input type="text" name="min" placeholder="Precio minimo">
+		<input type="Submit" value="Mostrar productos entre los 2 precios">
+	</form>
 	<table class="table">
 			<tr>
 				<th scope="row">ID</th>
