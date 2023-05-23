@@ -68,10 +68,12 @@
 				</tr>	
 			</c:forEach>
 		</table>
+		<a href="Principal">Recargar Pagina</a>
 		<br><br>
 		<p>${msg}</p>
 		<br><br>	
 		<form action="InsertarProducto">
+		<h1>INSERTAR PRODUCTO</h1>
 			<label>Codigo</label>
 			<input type="text" name="codigo" placeholder="codigo">
 			<br><br>
@@ -95,10 +97,13 @@
 				</c:forEach>
 			</select>
 			<br><br>
+			<c:forEach items="${Supermercados}" var="supermercado">
+				<input type="checkbox" name="supermercados" value="${supermercado.id}">${supermercado.nombre}
+			</c:forEach>
+			<br><br>
 			<input type="submit" value="Insertar Producto">
 		</form>
 		<br><br><br>
 		
-		<a href="Principal">Recargar Pagina</a>
 </body>
 </html>

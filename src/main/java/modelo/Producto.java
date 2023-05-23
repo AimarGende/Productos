@@ -11,7 +11,11 @@ public class Producto {
 	private Date caducidad;
 	private Seccion seccion;
 	
-	public Producto(int id, String codigo, String nombre, int cantidad, double precio, Date caducidad, Seccion seccion) {
+	
+		
+	public Producto(int id, String codigo, String nombre, int cantidad, double precio, Date caducidad, Seccion seccion,
+			Supermercado supermercado) {
+		super();
 		this.id = id;
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -20,7 +24,7 @@ public class Producto {
 		this.caducidad = caducidad;
 		this.seccion = seccion;
 	}
-		
+
 	public Producto() {
 	}
 
@@ -84,6 +88,8 @@ public class Producto {
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", cantidad=" + cantidad
-				+ ", precio=" + precio + ", caducidad=" + caducidad + ", seccion=" + seccion + "]";
+				+ ", precio=" + precio + ", caducidad=" + caducidad + ", seccion=" + seccion  + "]";
 	}
+
+	
 }

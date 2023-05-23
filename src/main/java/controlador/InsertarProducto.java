@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloProducto;
 import modelo.ModeloSeccion;
+import modelo.ModeloSupermercado;
 import modelo.Producto;
 
 /**
@@ -37,7 +38,7 @@ public class InsertarProducto extends HttpServlet {
 		Producto producto = new Producto();
 		ModeloProducto mp = new ModeloProducto();
 		ModeloSeccion ms = new ModeloSeccion();
-		
+		ModeloSupermercado msuper = new ModeloSupermercado();
 		
 		producto.setCodigo(request.getParameter("codigo"));
 		producto.setNombre(request.getParameter("nombre"));
@@ -67,12 +68,22 @@ public class InsertarProducto extends HttpServlet {
 		}
 		else {
 			if(mp.insertarProducto(producto)) {
-				request.setAttribute("msg", "Se ha insertado correctamente");
+				request.setAttribute("msg", "Se ha insertado el producto correctamente");
 			}
 			else {
-				request.setAttribute("msg", "No se ha insertado");
+				request.setAttribute("msg", "No se ha insertado el producto");
 			}
 		}
+		
+		//Devuelve un numero del 1-4 dependiendo de que checkbox escojas
+		
+		if(msuper.insertarProductoSupermercado(mp.maxId(), request.getParameterValues("supermercados"))) {
+			request.setAttribute("msg", "Se ha insertado correctamente");
+		}else {
+			request.setAttribute("msg", "No se ha insertado el supermercado");
+		}
+		
+
 		request.getRequestDispatcher("Principal").forward(request, response);
 	}
 

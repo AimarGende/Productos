@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloProducto;
 import modelo.ModeloSeccion;
+import modelo.ModeloSupermercado;
 import modelo.Producto;
 
 /**
@@ -36,9 +37,12 @@ public class ModificarProducto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			ModeloProducto mp = new ModeloProducto();
 			ModeloSeccion ms = new ModeloSeccion();
-
+			ModeloSupermercado msuper = new ModeloSupermercado();
+			
 			request.setAttribute("Producto", mp.getProducto(Integer.parseInt(request.getParameter("id"))));
 			request.setAttribute("Secciones", ms.getSecciones());
+			request.setAttribute("supermercados", msuper.getSupermercados());
+			request.setAttribute("supermercadosProducto", mp.getSupermercadoProducto(Integer.parseInt(request.getParameter("id"))));
 			request.getRequestDispatcher("FormModificarProducto.jsp").forward(request, response);
 			
 	}

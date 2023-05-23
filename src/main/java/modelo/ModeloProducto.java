@@ -124,6 +124,7 @@ public class ModeloProducto extends Conector{
 				producto.setPrecio(result.getDouble("precio"));
 				producto.setCaducidad(result.getDate("caducidad"));
 				producto.setSeccion(ms.getSeccion(result.getInt("id_seccion")));
+				
 				productos.add(producto);
 			}
 			return productos;
@@ -157,5 +158,71 @@ public class ModeloProducto extends Conector{
 			return producto;
 		}
 		
+	}
+	
+	public ArrayList<Supermercado> getSupermercadoProducto(int id_producto){
+		ArrayList<Supermercado> supermercados = new ArrayList<Supermercado>();
+		try {
+			conectar();
+			pst = getCon().prepareStatement("SELECT * FROM	supermercados WHERE id IN (SELECT id_supermercado FROM productos_supermercados WHERE id_producto=?)");
+			pst.setInt(1, id_producto);
+			
+			ResultSet result = pst.executeQuery();
+			
+			while(result.next()) {
+				Supermercado supermercado = new Supermercado();	
+				
+				supermercado.setId(result.getInt("id"));
+				supermercado.setNombre(result.getString("nombre"));
+				
+				supermercados.add(supermercado);
+			}
+			
+			cerrar();
+			return supermercados;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return supermercados;
+		}
+
+	}
+	
+	public int maxId() {
+		try {
+			conectar();
+			pst = getCon().prepareStatement("SELECT MAX(id) FROM productos");
+
+			
+			ResultSet result = pst.executeQuery();
+			result.next();
+			int maxId= result.getInt(1);
+			cerrar();
+			return maxId;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public boolean eliminarProductoSupermercado(int id_producto) {
+		sentencia="DELETE FROM productos_supermercados WHERE id_producto=?";
+		
+		try {
+			conectar();
+			
+			pst=getCon().prepareStatement(sentencia);
+			
+			pst.setInt(1, id_producto);
+			
+			pst.execute();
+			
+			cerrar();
+			
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 }

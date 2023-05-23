@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelo.ModeloProducto;
-
 /**
  * Servlet implementation class EliminarProducto
  */
@@ -33,7 +32,13 @@ public class EliminarProducto extends HttpServlet {
 		if(mp.eliminarProducto(Integer.parseInt(request.getParameter("id")))){
 			request.setAttribute("msg", "Se ha eliminado correctamente");
 		}else {
-			request.setAttribute("msg", "No se ha eliminado");
+			request.setAttribute("msg", "No se ha eliminado el producto");
+		}
+		
+		if(mp.eliminarProductoSupermercado(Integer.parseInt(request.getParameter("id")))){
+			request.setAttribute("msg", "Se ha eliminado correctamente");
+		}else {
+			request.setAttribute("msg", "No se ha eliminado el producto");
 		}
 		
 		request.getRequestDispatcher("Principal").forward(request, response);
