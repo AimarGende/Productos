@@ -8,14 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h1>MODIFICAR</h1>
 	<form action="ModificarProducto" method="post">
-			<br><br>
 			<p>${msg}</p>
-			<br><br>
 			<label>ID: ${Producto.id}</label>
 			<input type="hidden" name="id" value="${Producto.id}">
-			<label>Codigo</label>
-			<input type="text" name="codigo" placeholder="codigo" value="${Producto.codigo}">
+			<label>Codigo: ${Producto.codigo}</label>
+			<input type="hidden" name="codigo" placeholder="codigo" value="${Producto.codigo}">
 			<br><br>
 			<label>Nombre</label>
 			<input type="text" name="nombre" placeholder="Nombre" value="${Producto.nombre}">
@@ -60,5 +59,6 @@
 			<br><br>
 			<input type="submit" value="Modificar Producto">
 	</form>
+	<a href="Principal">Volver</a>
 </body>
 </html>
