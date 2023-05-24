@@ -52,6 +52,7 @@
 				<th scope="row">CADUCIDAD</th>
 				<th scope="row">SECCION</th>
 				<th scope="row">ELIMINAR</th>
+				<th scope="row">ELIMINAR ESPECIAL</th>
 				<th scope="row">MODIFICAR</th>
 			</tr>
 			<c:forEach items="${Productos}" var="producto">
@@ -64,11 +65,16 @@
 					<td>${producto.caducidad}</td>
 					<td>${producto.seccion.nombre}</td>
 					<td><a href="EliminarProducto?id=${producto.id}">Eliminar</a></td>
+					<td><a href="EliminarProductoEspecial?id=${producto.id}">Eliminar especial</a></td>
 					<td><a href="ModificarProducto?id=${producto.id}">Modificar</a></td>
 				</tr>	
 			</c:forEach>
 		</table>
 		<a href="Principal">Recargar Pagina</a>
+		<form action="EliminarCodgis">
+			<input type="text" name="codigos" placeholder="codigos">
+			<input type="submit" value="Eliminar codigos">
+		</form>
 		<br><br>
 		<p>${msg}</p>
 		<br><br>	

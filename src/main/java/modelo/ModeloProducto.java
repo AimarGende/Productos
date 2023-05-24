@@ -74,6 +74,27 @@ public class ModeloProducto extends Conector{
 		
 	}
 	
+	public boolean eliminarProductos(String[] codigos) {
+		sentencia="DELETE FROM productos WHERE codigo =?";
+		
+		try {
+			conectar();
+			
+			pst=getCon().prepareStatement(sentencia);
+			
+			for (String string : codigos) {
+				pst.setString(1,string);
+				pst.execute();
+			}
+			cerrar();
+			
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+		
+	}
+	
 	public boolean actualizarProducto(Producto producto) {
 		sentencia="UPDATE productos SET codigo=?,nombre=?,cantidad=?,precio=?,caducidad=?, id_seccion=? WHERE id=?";
 		
