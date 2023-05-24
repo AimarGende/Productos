@@ -54,6 +54,8 @@ public class ModificarProducto extends HttpServlet {
 		Producto producto = new Producto();
 		ModeloProducto mp = new ModeloProducto();
 		ModeloSeccion ms = new ModeloSeccion();
+		ModeloSupermercado msuper = new ModeloSupermercado();
+
 		
 		producto.setId(Integer.parseInt(request.getParameter("id")));
 		producto.setCodigo(request.getParameter("codigo"));
@@ -81,12 +83,27 @@ public class ModificarProducto extends HttpServlet {
 			doGet(request, response);
 		}
 		else {
-			if(mp.actualizarProducto(producto)) {
-				request.setAttribute("msg", "Se ha modificado correctamente");
+			
+			if(mp.eliminarProductoSupermercado(producto.getId())) {
+				if(	msuper.insertarProductoSupermercado(producto.getId(), request.getParameterValues("supermercados"))) {
+					mp.actualizarProducto(producto);
+					if (mp.actualizarProducto(producto)) {
+						request.setAttribute("msg", "Se ha modificado");
+					}
+					else {
+						request.setAttribute("msg", "No se ha modificado");
+					}
+				}
+				else {
+					request.setAttribute("msg", "No se ha modificado");
+				}
 			}
 			else {
 				request.setAttribute("msg", "No se ha modificado");
 			}
+			
+			
+			
 		}
 
 		request.getRequestDispatcher("Principal").forward(request, response);

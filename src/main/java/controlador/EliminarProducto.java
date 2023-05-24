@@ -29,18 +29,18 @@ public class EliminarProducto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModeloProducto mp = new ModeloProducto();
 		
-		if(mp.eliminarProducto(Integer.parseInt(request.getParameter("id")))){
-			request.setAttribute("msg", "Se ha eliminado correctamente");
-		}else {
-			request.setAttribute("msg", "No se ha eliminado el producto");
-		}
-		
 		if(mp.eliminarProductoSupermercado(Integer.parseInt(request.getParameter("id")))){
 			request.setAttribute("msg", "Se ha eliminado correctamente");
+			if(mp.eliminarProducto(Integer.parseInt(request.getParameter("id")))){
+				request.setAttribute("msg", "Se ha eliminado correctamente");
+			}else {
+				request.setAttribute("msg", "No se ha eliminado el producto");
+			}
+			
 		}else {
 			request.setAttribute("msg", "No se ha eliminado el producto");
 		}
-		
+			
 		request.getRequestDispatcher("Principal").forward(request, response);
 		
 	}
