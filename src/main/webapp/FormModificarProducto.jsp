@@ -44,17 +44,20 @@
 			</select>
 			<br><br>
 			<c:forEach items="${supermercados}" var="supermercado">
-				<%boolean esta = false; %>
+				<c:set var="esta" value="No esta"></c:set>
 				<c:forEach items="${supermercadosProducto}" var="superproductos">
 						<c:if test="${supermercado.id==superproductos.id}">
-							<%esta=true;%>
+							<c:set var="esta" value="Esta"></c:set>
 						</c:if>
 				</c:forEach>
-				<%if(esta){
-					%><input type="checkbox" checked name="supermercados" value="${supermercado.id}">${supermercado.nombre}<%
-				}else{ %>
-					<input type="checkbox" name="supermercados" value="${supermercado.id}">${supermercado.nombre}<%
-				}%>
+				<c:choose>
+					<c:when test="${esta eq 'Esta'}">
+						<input type="checkbox" checked name="supermercados" value="${supermercado.id}">${supermercado.nombre}
+					</c:when>
+					<c:otherwise>
+						<input type="checkbox" name="supermercados" value="${supermercado.id}">${supermercado.nombre}
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 			<br><br>
 			<input type="submit" value="Modificar Producto">
