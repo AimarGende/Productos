@@ -42,7 +42,8 @@
 		<input type="text" name="min" placeholder="Precio minimo">
 		<input type="Submit" value="Mostrar productos entre los 2 precios">
 	</form>
-	<table class="table">
+	<form action="EliminarProductosSeleccionados">
+		<table class="table">
 			<tr>
 				<th scope="row">ID</th>
 				<th scope="row">CODIGO</th>
@@ -67,9 +68,13 @@
 					<td><a href="EliminarProducto?id=${producto.id}">Eliminar</a></td>
 					<td><a href="EliminarProductoEspecial?id=${producto.id}">Eliminar especial</a></td>
 					<td><a href="ModificarProducto?id=${producto.id}">Modificar</a></td>
+					<td><input type="checkbox" name="productosEliminar" value="${producto.id}"> </td>
 				</tr>	
 			</c:forEach>
 		</table>
+		<input type="submit" value="Eliminar productos seleccionados">	
+	</form>
+		
 		<a href="Principal">Recargar Pagina</a>
 		<form action="EliminarCodgis">
 			<input type="text" name="codigos" placeholder="codigos">

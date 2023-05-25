@@ -95,6 +95,27 @@ public class ModeloProducto extends Conector{
 		
 	}
 	
+	public boolean eliminarProductosPorId(String[] ids) {
+		sentencia="DELETE FROM productos WHERE id =?";
+		
+		try {
+			conectar();
+			
+			pst=getCon().prepareStatement(sentencia);
+			
+			for (String string : ids) {
+				pst.setString(1,string);
+				pst.execute();
+			}
+			cerrar();
+			
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+		
+	}
+	
 	public boolean actualizarProducto(Producto producto) {
 		sentencia="UPDATE productos SET codigo=?,nombre=?,cantidad=?,precio=?,caducidad=?, id_seccion=? WHERE id=?";
 		
@@ -148,6 +169,7 @@ public class ModeloProducto extends Conector{
 				
 				productos.add(producto);
 			}
+			cerrar();
 			return productos;
 		} catch (SQLException e) {
 			return productos;
@@ -174,6 +196,7 @@ public class ModeloProducto extends Conector{
 			producto.setCaducidad(result.getDate("caducidad"));
 			producto.setSeccion(ms.getSeccion(result.getInt("id_seccion")));
 			
+			cerrar();
 			return producto;
 		} catch (SQLException e) {
 			return producto;

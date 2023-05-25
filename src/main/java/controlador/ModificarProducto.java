@@ -85,25 +85,21 @@ public class ModificarProducto extends HttpServlet {
 		else {
 			
 			if(mp.eliminarProductoSupermercado(producto.getId())) {
-				if(	msuper.insertarProductoSupermercado(producto.getId(), request.getParameterValues("supermercados"))) {
-					mp.actualizarProducto(producto);
-					if (mp.actualizarProducto(producto)) {
-						request.setAttribute("msg", "Se ha modificado");
-					}
-					else {
-						request.setAttribute("msg", "No se ha modificado");
+				if(mp.actualizarProducto(producto)) {
+					request.setAttribute("msg", "Se ha modificado");
+					if(request.getParameterValues("supermercados")!=null) {
+						msuper.insertarProductoSupermercado(producto.getId(), request.getParameterValues("supermercados"));
 					}
 				}
 				else {
 					request.setAttribute("msg", "No se ha modificado");
+					doGet(request, response);
 				}
 			}
 			else {
 				request.setAttribute("msg", "No se ha modificado");
-			}
-			
-			
-			
+				doGet(request, response);
+			}	
 		}
 
 		request.getRequestDispatcher("Principal").forward(request, response);

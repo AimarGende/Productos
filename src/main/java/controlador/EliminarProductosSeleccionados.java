@@ -1,7 +1,6 @@
 package controlador;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.ModeloProducto;
 
 /**
- * Servlet implementation class EliminarCodgis
+ * Servlet implementation class EliminarProductosSeleccionados
  */
-@WebServlet("/EliminarCodgis")
-public class EliminarCodgis extends HttpServlet {
+@WebServlet("/EliminarProductosSeleccionados")
+public class EliminarProductosSeleccionados extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EliminarCodgis() {
+    public EliminarProductosSeleccionados() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +29,13 @@ public class EliminarCodgis extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getParameter("codigos").split(",")!=null) {
-
-			String[] codigos= request.getParameter("codigos").split(",");
+		if(request.getParameterValues("productosEliminar")!=null) {
+			String[] ids = request.getParameterValues("productosEliminar");
 			ModeloProducto mp = new ModeloProducto();
-			boolean salir = false;
+			mp.eliminarProductosPorId(ids);
 			
-			int i=0;
-			while(i<codigos.length && !salir) {
-				if(!mp.getCodigo(codigos[i])) {
-					i=codigos.length;
-					salir=true;
-				}
-				i++;	
-			}
-			
-			if(!salir) {
-				mp.eliminarProductos(codigos);
-			}
 		}
+		
 		
 		request.getRequestDispatcher("Principal").forward(request, response);
 	}

@@ -69,19 +69,18 @@ public class InsertarProducto extends HttpServlet {
 		else {
 			if(mp.insertarProducto(producto)) {
 				request.setAttribute("msg", "Se ha insertado el producto correctamente");
+				if(request.getParameterValues("supermercados")!=null){
+					request.setAttribute("msg", "Escoga supermercado");
+					msuper.insertarProductoSupermercado(mp.maxId(), request.getParameterValues("supermercados"));
+				}
 			}
 			else {
 				request.setAttribute("msg", "No se ha insertado el producto");
 			}
 		}
 		
-		//Devuelve un numero del 1-4 dependiendo de que checkbox escojas
 		
-		if(msuper.insertarProductoSupermercado(mp.maxId(), request.getParameterValues("supermercados"))) {
-			request.setAttribute("msg", "Se ha insertado correctamente");
-		}else {
-			request.setAttribute("msg", "No se ha insertado el supermercado");
-		}
+
 		
 
 		request.getRequestDispatcher("Principal").forward(request, response);
