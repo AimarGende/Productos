@@ -43,7 +43,7 @@
 		<input type="Submit" value="Mostrar productos entre los 2 precios">
 	</form>
 	<form action="EliminarProductosSeleccionados">
-		<table class="table">
+		<table class="table" border=1>
 			<tr>
 				<th scope="row">ID</th>
 				<th scope="row">CODIGO</th>
@@ -55,6 +55,9 @@
 				<th scope="row">ELIMINAR</th>
 				<th scope="row">ELIMINAR ESPECIAL</th>
 				<th scope="row">MODIFICAR</th>
+				<th scope="row">ELIMINAR SELECCIONADOS</th>
+				<th scope="row">ANADIR AL CARRITO</th>
+				
 			</tr>
 			<c:forEach items="${Productos}" var="producto">
 				<tr>
@@ -68,12 +71,16 @@
 					<td><a href="EliminarProducto?id=${producto.id}">Eliminar</a></td>
 					<td><a href="EliminarProductoEspecial?id=${producto.id}">Eliminar especial</a></td>
 					<td><a href="ModificarProducto?id=${producto.id}">Modificar</a></td>
-					<td><input type="checkbox" name="productosEliminar" value="${producto.id}"> </td>
+					<td align="center"><input type="checkbox" name="productosEliminar" value="${producto.id}"> </td>
+					<td><a href="AnadirAlCarrito?id=${producto.id}">Anadir al carrito</a></td>
 				</tr>	
 			</c:forEach>
 		</table>
 		<input type="submit" value="Eliminar productos seleccionados">	
 	</form>
+	<br><br>
+		<a href="VerCarrito">Carrito ${productosCarrito}</a>
+		<br><br>
 		
 		<a href="Principal">Recargar Pagina</a>
 		<form action="EliminarCodgis">

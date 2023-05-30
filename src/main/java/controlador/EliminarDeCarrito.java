@@ -10,22 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import modelo.ModeloProducto;
-import modelo.ModeloSeccion;
-import modelo.ModeloSupermercado;
 import modelo.Producto;
 
 /**
- * Servlet implementation class Principal
+ * Servlet implementation class EliminarDeCarrito
  */
-@WebServlet("/Principal")
-public class Principal extends HttpServlet {
+@WebServlet("/EliminarDeCarrito")
+public class EliminarDeCarrito extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Principal() {
+    public EliminarDeCarrito() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,31 +31,27 @@ public class Principal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ModeloProducto mp = new ModeloProducto();
-		ModeloSeccion ms = new ModeloSeccion();
-		ModeloSupermercado msuper = new ModeloSupermercado();
 		HttpSession session = request.getSession();
-		ArrayList<Producto> carrito = (ArrayList<Producto>)session.getAttribute("carrito");
-		int productos =0;
-		if(session.getAttribute("carrito")!=null) {
-			productos=carrito.size();
+		
+		ArrayList<Producto> carrito= (ArrayList<Producto>) session.getAttribute("carrito");
+		ArrayList<Producto> nuevoCarrito = new ArrayList<Producto>();
+		
+		for (Producto producto : carrito) {
+			if(producto.getId()!=Integer.parseInt(request.getParameter("id"))) {
+				nuevoCarrito.add(producto);
+			}
 		}
-		request.setAttribute("productosCarrito", productos);
-		request.setAttribute("Secciones", ms.getSecciones());
-		request.setAttribute("Productos", mp.getProductos());
-		request.setAttribute("SupermercadoProductos", mp.getProductos());
-		request.setAttribute("Supermercados",msuper.getSupermercados());
+		session.setAttribute("carrito", nuevoCarrito);
 		
-		
-		
-		request.getRequestDispatcher("Principal.jsp").forward(request, response);
+		request.getRequestDispatcher("VerCarrito").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
