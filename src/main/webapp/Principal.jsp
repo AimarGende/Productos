@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<a href="VerCarrito" style="float: right;font-size: 50px">Carrito ${productosCarrito}</a>
 	<div class="Ordenado" style="display: inline-block; width: 50%;">
 	<h1>Ordenar</h1>
 		<form action="OrdenarPorCodigo">
@@ -79,7 +80,7 @@
 		<input type="submit" value="Eliminar productos seleccionados">	
 	</form>
 	<br><br>
-		<a href="VerCarrito">Carrito ${productosCarrito}</a>
+		
 		<br><br>
 		
 		<a href="Principal">Recargar Pagina</a>

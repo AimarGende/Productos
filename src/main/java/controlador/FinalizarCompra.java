@@ -37,6 +37,7 @@ public class FinalizarCompra extends HttpServlet {
 		ModeloProducto mp = new ModeloProducto();
 		
 		for (Producto producto : carrito) {
+			producto=mp.getProducto(producto.getId());
 			producto.setCantidad(producto.getCantidad()-1);
 			mp.actualizarProducto(producto);
 		}
